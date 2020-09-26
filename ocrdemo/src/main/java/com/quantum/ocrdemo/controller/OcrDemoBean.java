@@ -2,12 +2,8 @@ package com.quantum.ocrdemo.controller;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,25 +14,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.ImageOutputStream;
 
 import org.bytedeco.javacpp.indexer.UByteRawIndexer;
 import org.bytedeco.javacv.Java2DFrameUtils;
-import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.global.opencv_photo;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Size;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
-import org.opencv.osgi.OpenCVNativeLoader;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
 
 import com.recognition.software.jdeskew.ImageDeskew;
 import com.recognition.software.jdeskew.ImageUtil;
-import com.sun.scenario.animation.shared.InterpolationInterval;
 
 import net.sourceforge.tess4j.ITessAPI.TessPageIteratorLevel;
 import net.sourceforge.tess4j.Tesseract;
@@ -207,9 +198,7 @@ public class OcrDemoBean {
         if (ocrFile != null) {
         	Tesseract instance = new Tesseract();
         	instance.setDatapath("C:\\Program Files\\Tesseract-OCR\\tessdata");
-        	//instance.setDatapath("C:\\Program Files\\Tesseract-OCR\\data");
             instance.setLanguage("eng");
-    	 //   instance.setHocr(true);
             
 			try {
 				
@@ -217,10 +206,6 @@ public class OcrDemoBean {
 				showInput(image, ocrFile.getFileName());
 				
 				BufferedImage binaryImage = binaryImage(image);
-				/*
-				BufferedImage binaryImage = ImageHelper.convertImageToGrayscale(image);
-				binaryImage = ImageHelper.convertImageToBinary(binaryImage);
-				*/
 				Mat mat = enhanceMat(mat(binaryImage));
 				
 				BufferedImage matImage = Java2DFrameUtils.toBufferedImage(mat);
@@ -231,11 +216,7 @@ public class OcrDemoBean {
 			    proccessOutput(words);
 			    int i = 0;
 				for (Word w : words) {
-					System.out.println("i: " + (i++));
-					System.out.println("Des T: " + w.getText());
-					System.out.println("Des C: " + w.getConfidence());
 					Rectangle rect = w.getBoundingBox();
-					System.out.println(String.format("Box: x=%d, y=%d, w=%d, h=%d", rect.x, rect.y, rect.width, rect.height));
 				}
 				/*
 				saveImage(binaryImage, "C:\\opencv\\images\\output\\bin.jpg");
@@ -336,16 +317,6 @@ public class OcrDemoBean {
 		
 	}
 	
-	public static void main (String[] args) {
-		 String s = " eR G6318270U [as ox, a fm)";
-		 Pattern p = Pattern.compile("[STFG]\\d{7}[A-Z]");
-		    Matcher m = p.matcher(s);
-		    if (m.find()) {
-		    	System.out.println(m.group());
-		    }
-		    
-		 
-	}
 	
 }
 
