@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"  
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>OCR Demo Project</title>
+</h:head>
+
+<h:body>
+    <h:form>
+    	<p:growl id="messages" showDetail="true" />
+    	<p:panel  header="OCR Demo">
+    		<div class="ui-g">
+			    <div class="ui-g-12">
+			    	 <p:fileUpload listener="#{ocrDemo.uploadOcrFile}" 
+			    	 			   mode="advanced" 
+			    	 			   multiple="false"
+			    	 			   dragDropSupport="false"
+                  				   update="messages results" 
+                  				   sizeLimit="10000000" 
+                  				   allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
+			    </div>
+			</div>
+			<p:outputPanel id="results">
+			<p:fieldset legend="Result" rendered="#{not empty ocrDemo.output}">
+				<p:outputPanel rendered="#{ocrDemo.front}">
+				<div class="ui-g" >
+					<div class="ui-g-2">
+			    		<p:outputLabel value="Header"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.passType}"></h:outputText>
+			    	</div>
+			    	<div class="ui-g-2">
+			    		<p:outputLabel value="Employer"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.employer}"></h:outputText>
+			    	</div>
+			    	<div class="ui-g-2">
+			    		<p:outputLabel value="Name"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.name}"></h:outputText>
+			    	</div>
+			    	<div class="ui-g-2">
+			    		<p:outputLabel value="FIN"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.fin}"></h:outputText>
+			    	</div>
+			    </div>	
+			    </p:outputPanel>
+			    <p:outputPanel rendered="#{!ocrDemo.front}">
+				<div class="ui-g" >
+					<div class="ui-g-2">
+			    		<p:outputLabel value="Header"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.passType}"></h:outputText>
+			    	</div>
+			    	<div class="ui-g-2">
+			    		<p:outputLabel value="Name"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.name}"></h:outputText>
+			    	</div>
+			    	<div class="ui-g-2">
+			    		<p:outputLabel value="FIN"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.fin}"></h:outputText>
+			    	</div>
+			    	<div class="ui-g-2">
+			    		<p:outputLabel value="Birth Date"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.birthdate}"></h:outputText>
+			    	</div>
+			    	<div class="ui-g-2">
+			    		<p:outputLabel value="Sex"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.sex}"></h:outputText>
+			    	</div>
+			    	<div class="ui-g-2">
+			    		<p:outputLabel value="Nationality"></p:outputLabel>
+			    	</div>
+			    	<div class="ui-g-4">
+			    		<h:outputText value="#{ocrDemo.nationality}"></h:outputText>
+			    	</div>			    	
+			    </div>	
+			    </p:outputPanel>
+				<p:separator></p:separator>
+				<div class="ui-g">
+			    	<div class="ui-g-6">
+			    		<img src="#{ocrDemo.input}" style="#{ocrDemo.input eq null ? 'display: none' : 'width:600px;'}"/>
+			    	</div>
+			    	<div class="ui-g-6">
+			    		<img src="#{ocrDemo.output}" style="#{ocrDemo.output eq null ? 'display: none' : 'width:600px;'}"/>
+			    	</div>
+			    </div>
+			</p:fieldset>
+			</p:outputPanel>
+			
+    	</p:panel>
+    </h:form>
+</h:body>
+
+</html>
